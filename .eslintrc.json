@@ -1,17 +1,15 @@
 {
   "extends": ["airbnb"],
-  "plugins": [
-    "react",
-    "react-native"
-  ],
+  "plugins": ["react", "react-native", "jest"],
   "parserOptions": {
-      "ecmaFeatures": {
-          "jsx": true
-      }
-},
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env": {
     "browser": true,
-    "react-native/react-native": true
+    "react-native/react-native": true,
+    "jest/globals": true
   },
   "rules": {
     "no-console": "off",
@@ -26,4 +24,3 @@
     "react-native/no-single-element-style-arrays": 2
   }
 }
-
