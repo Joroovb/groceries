@@ -1,22 +1,14 @@
-# groceries 
- 
+# Groceries 
+
+Simple and intuitive grocery list for Android & iOS
+
 ## Overview 
 
  
-## Requirement 
 
-
-## Usage 
-
- 
-## Features 
-
- 
-## Reference 
-
- 
 ## Author 
 
+Joroovb
  
 ## Licence
 
