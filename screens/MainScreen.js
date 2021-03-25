@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { SafeAreaView, StyleSheet, TextInput } from 'react-native';
 import { Card, FAB, Menu, IconButton } from 'react-native-paper';
-import { FlatList } from 'react-native-gesture-handler';
 import Constants from 'expo-constants';
+import DraggableFlatList from 'react-native-draggable-flatlist';
+import * as yup from 'yup';
 import {
   addItem,
   checkItem,
@@ -11,39 +12,51 @@ import {
   storeItems,
   changeOrder,
 } from '../store/Actions/ActionCreators';
-import DraggableFlatList from 'react-native-draggable-flatlist';
+
+const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+  card: {
+    margin: 10,
+  },
+  textInput: { fontSize: 19, fontWeight: '500' },
+  checked: {
+    color: '#808080',
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+  },
+  sav: { flex: 1, marginTop: Constants.statusBarHeight },
+});
 
 const ListItem = ({ item, dispatch, drag, isActive }) => {
   const [visible, setVisible] = React.useState(false);
-  const openMenu = () => setVisible(true);
-  const closeMenu = () => setVisible(false);
+  const openMenu = () => {
+    setVisible(true);
+  };
+  const closeMenu = () => {
+    setVisible(false);
+  };
   return (
     <Card
       elevation={isActive ? 6 : 3}
-      style={{
-        margin: 10,
+      style={styles.card}
+      onPress={() => {
+        dispatch(checkItem(item));
       }}
-      onPress={() => dispatch(checkItem(item))}
       onLongPress={drag}
     >
       <Card.Title
-        titleStyle={
-          item.check
-            ? {
-                color: 'grey',
-                textDecorationLine: 'line-through',
-                textDecorationStyle: 'solid',
-              }
-            : {}
-        }
+        titleStyle={item.check ? styles.checked : {}}
         title={item.product}
-        right={(props) => (
+        right={() => (
           <Menu
             visible={visible}
             onDismiss={closeMenu}
-            anchor={
-              <IconButton {...props} icon='dots-vertical' onPress={openMenu} />
-            }
+            anchor={<IconButton icon='dots-vertical' onPress={openMenu} />}
           >
             <Menu.Item
               onPress={() => dispatch(removeItem(item))}
@@ -57,73 +70,71 @@ const ListItem = ({ item, dispatch, drag, isActive }) => {
   );
 };
 
-const TextInputCard = ({ items, dispatch }) => {
+const inputSchema = yup.string().required().min(2);
+
+const TextInputCard = ({ dispatch }) => {
   const [text, setText] = useState('');
+
+  const submitHandler = () => {
+    inputSchema.isValid(text).then((valid) => {
+      if (valid) {
+        dispatch(
+          addItem({
+            id: Date.now(),
+            product: text,
+            amount: 1,
+            check: false,
+          }),
+        );
+        setText('');
+      }
+    });
+  };
+
   return (
-    <Card elevation={3} style={{ margin: 10 }}>
+    <Card elevation={3} style={styles.card}>
       <Card.Content>
         <TextInput
-          placeholder={'Enter new product'}
+          placeholder='Enter new product'
           value={text}
-          onChangeText={(txt) => setText(txt)}
-          blurOnSubmit={false}
-          style={{ fontSize: 19, fontWeight: '500' }}
-          onSubmitEditing={() => {
-            text.length > 1
-              ? dispatch(
-                  addItem({
-                    id: Date.now(),
-                    product: text,
-                    amount: 1,
-                    check: false,
-                  }),
-                )
-              : {};
-            setText('');
+          onChangeText={(txt) => {
+            setText(txt);
           }}
+          blurOnSubmit={false}
+          style={styles.textInput}
+          onSubmitEditing={submitHandler}
         />
       </Card.Content>
     </Card>
   );
 };
 
-const styles = StyleSheet.create({
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  },
-});
-
-const MainScreen = ({ items, dispatch }) => {
-  return (
-    <SafeAreaView style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
-      <DraggableFlatList
-        data={items}
-        renderItem={(item) => (
-          <ListItem
-            dispatch={dispatch}
-            drag={item.drag}
-            isActive={item.isActive}
-            item={item.item}
-          />
-        )}
-        bounces={false}
-        onDragEnd={(items) => dispatch(changeOrder(items))}
-        keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={
-          <TextInputCard items={items} dispatch={dispatch} />
-        }
-      />
-      <FAB
-        style={styles.fab}
-        icon='check'
-        onPress={() => dispatch(storeItems())}
-      />
-    </SafeAreaView>
-  );
-};
+const MainScreen = ({ items, dispatch }) => (
+  <SafeAreaView style={styles.sav}>
+    <DraggableFlatList
+      data={items}
+      renderItem={(item) => (
+        <ListItem
+          dispatch={dispatch}
+          drag={item.drag}
+          isActive={item.isActive}
+          item={item.item}
+        />
+      )}
+      bounces={false}
+      onDragEnd={(data) => dispatch(changeOrder(data))}
+      keyExtractor={(item) => item.id.toString()}
+      ListHeaderComponent={<TextInputCard items={items} dispatch={dispatch} />}
+    />
+    <FAB
+      style={styles.fab}
+      icon='check'
+      onPress={() => {
+        dispatch(storeItems());
+      }}
+    />
+  </SafeAreaView>
+);
 
 const mapStateToProps = (state) => {
   const { items } = state;

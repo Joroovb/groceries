@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb/base"],
+  "extends": ["airbnb"],
   "plugins": [
     "react",
     "react-native"
@@ -10,11 +10,13 @@
       }
 },
   "env": {
+    "browser": true,
     "react-native/react-native": true
   },
   "rules": {
     "no-console": "off",
-    "arrow-body-style": ["error", "always"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "react/jsx-filename-extension": [1, { "allow": "as-needed" }],
     "react-native/no-unused-styles": 2,
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,

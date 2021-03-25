@@ -1,12 +1,20 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import MainScreen from '../screens/MainScreen';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useTheme } from '@react-navigation/native';
+import MainScreen from '../screens/MainScreen';
+
+const styles = StyleSheet.create({
+  notificationScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 function NotificationsScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.notificationScreen}>
       <Text>Coming Soon!</Text>
     </View>
   );
@@ -21,7 +29,7 @@ const MainStack = () => {
     <Tab.Navigator
       initialRouteName='Home'
       barStyle={{ backgroundColor: colors.primary }}
-      shifting={true}
+      shifting
     >
       <Tab.Screen
         name='List'

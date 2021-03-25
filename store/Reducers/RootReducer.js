@@ -37,7 +37,7 @@ const reducer = (state = {}, action) => {
     case STORE_BOUGHT: {
       return {
         ...state,
-        items: items.filter((i) => i.check == false),
+        items: items.filter((i) => i.check === false),
       };
     }
     case CHANGE_ORDER: {
@@ -46,9 +46,9 @@ const reducer = (state = {}, action) => {
         items: action.items.data,
       };
     }
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export default reducer;
