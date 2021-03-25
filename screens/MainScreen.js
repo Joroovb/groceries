@@ -5,6 +5,7 @@ import { Card, FAB, Menu, IconButton } from 'react-native-paper';
 import Constants from 'expo-constants';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import * as yup from 'yup';
+import PropTypes from 'prop-types';
 import {
   addItem,
   checkItem,
@@ -70,6 +71,18 @@ const ListItem = ({ item, dispatch, drag, isActive }) => {
   );
 };
 
+ListItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    product: PropTypes.string,
+    amount: PropTypes.number,
+    check: PropTypes.bool,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  drag: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+};
+
 const inputSchema = yup.string().required().min(2);
 
 const TextInputCard = ({ dispatch }) => {
@@ -109,6 +122,10 @@ const TextInputCard = ({ dispatch }) => {
   );
 };
 
+TextInputCard.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
 const MainScreen = ({ items, dispatch }) => (
   <SafeAreaView style={styles.sav}>
     <DraggableFlatList
@@ -135,6 +152,18 @@ const MainScreen = ({ items, dispatch }) => (
     />
   </SafeAreaView>
 );
+
+MainScreen.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      product: PropTypes.string,
+      amount: PropTypes.number,
+      check: PropTypes.bool,
+    }),
+  ).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
   const { items } = state;
