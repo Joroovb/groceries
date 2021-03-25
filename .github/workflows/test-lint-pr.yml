@@ -1,5 +1,8 @@
 name: Lint and test before PR 
 on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:

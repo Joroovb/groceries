@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   textInput: { fontSize: 19, fontWeight: '500' },
+  // eslint-disable-next-line react-native/no-color-literals
   checked: {
     color: '#808080',
     textDecorationLine: 'line-through',
@@ -73,7 +74,7 @@ const ListItem = ({ item, dispatch, drag, isActive }) => {
 
 ListItem.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     product: PropTypes.string,
     amount: PropTypes.number,
     check: PropTypes.bool,
@@ -156,7 +157,7 @@ const MainScreen = ({ items, dispatch }) => (
 MainScreen.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       product: PropTypes.string,
       amount: PropTypes.number,
       check: PropTypes.bool,
