@@ -74,7 +74,7 @@ const ListItem = ({ item, dispatch, drag, isActive }) => {
 
 ListItem.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     product: PropTypes.string,
     amount: PropTypes.number,
     check: PropTypes.bool,
@@ -157,7 +157,7 @@ const MainScreen = ({ items, dispatch }) => (
 MainScreen.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       product: PropTypes.string,
       amount: PropTypes.number,
       check: PropTypes.bool,
