@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   textInput: { fontSize: 19, fontWeight: '500' },
+  // eslint-disable-next-line react-native/no-color-literals
   checked: {
     color: '#808080',
     textDecorationLine: 'line-through',
