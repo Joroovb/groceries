@@ -50,6 +50,7 @@ const ListItem = ({ item, dispatch, drag, isActive }) => {
         dispatch(checkItem(item));
       }}
       onLongPress={drag}
+      testID='listItem'
     >
       <Card.Title
         titleStyle={item.check ? styles.checked : {}}
@@ -150,6 +151,7 @@ const MainScreen = ({ items, dispatch }) => (
       onPress={() => {
         dispatch(storeItems());
       }}
+      testID='FAB'
     />
   </SafeAreaView>
 );
