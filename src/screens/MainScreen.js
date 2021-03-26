@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { SafeAreaView, StyleSheet, TextInput } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { Card, FAB, Menu, IconButton } from 'react-native-paper';
 import Constants from 'expo-constants';
 import DraggableFlatList from 'react-native-draggable-flatlist';
-import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import {
-  addItem,
   checkItem,
   removeItem,
   storeItems,
   changeOrder,
 } from '../store/Actions/ActionCreators';
+import TextInputCard from '../components/TextInputCard';
 
 const styles = StyleSheet.create({
   fab: {
@@ -24,7 +23,6 @@ const styles = StyleSheet.create({
   card: {
     margin: 10,
   },
-  textInput: { fontSize: 19, fontWeight: '500' },
   // eslint-disable-next-line react-native/no-color-literals
   checked: {
     color: '#808080',
@@ -83,49 +81,6 @@ ListItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
   drag: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
-};
-
-const inputSchema = yup.string().required().min(2);
-
-const TextInputCard = ({ dispatch }) => {
-  const [text, setText] = useState('');
-
-  const submitHandler = () => {
-    inputSchema.isValid(text).then((valid) => {
-      if (valid) {
-        dispatch(
-          addItem({
-            id: Date.now(),
-            product: text,
-            amount: 1,
-            check: false,
-          }),
-        );
-        setText('');
-      }
-    });
-  };
-
-  return (
-    <Card elevation={3} style={styles.card}>
-      <Card.Content>
-        <TextInput
-          placeholder='Enter new product'
-          value={text}
-          onChangeText={(txt) => {
-            setText(txt);
-          }}
-          blurOnSubmit={false}
-          style={styles.textInput}
-          onSubmitEditing={submitHandler}
-        />
-      </Card.Content>
-    </Card>
-  );
-};
-
-TextInputCard.propTypes = {
-  dispatch: PropTypes.func.isRequired,
 };
 
 const MainScreen = ({ items, dispatch }) => (
