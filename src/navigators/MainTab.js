@@ -22,7 +22,7 @@ function NotificationsScreen() {
 
 const Tab = createMaterialBottomTabNavigator();
 
-const MainStack = () => {
+const MainTab = () => {
   const { colors } = useTheme();
 
   return (
@@ -51,4 +51,4 @@ const MainStack = () => {
   );
 };
 
-export default MainStack;
+export default MainTab;

@@ -8,7 +8,7 @@ import {
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './src/store/store';
-import MainStack from './src/navigators/MainStack';
+import MainTab from './src/navigators/MainTab';
 
 const theme = {
   ...DefaultTheme,
@@ -38,7 +38,7 @@ export default function App() {
         <PaperProvider theme={combinedTheme}>
           <NavigationContainer theme={combinedTheme}>
             <StatusBar />
-            <MainStack />
+            <MainTab />
           </NavigationContainer>
         </PaperProvider>
       </PersistGate>
