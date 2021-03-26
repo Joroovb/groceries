@@ -98,7 +98,7 @@ const MainScreen = ({ items, dispatch }) => (
       bounces={false}
       onDragEnd={(data) => dispatch(changeOrder(data))}
       keyExtractor={(item) => item.id.toString()}
-      ListHeaderComponent={<TextInputCard items={items} dispatch={dispatch} />}
+      ListHeaderComponent={<TextInputCard dispatch={dispatch} />}
     />
     <FAB
       style={styles.fab}

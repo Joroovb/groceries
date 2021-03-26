@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
-import * as yup from 'yup';
 import PropTypes from 'prop-types';
+import * as yup from 'yup';
 import { addItem } from '../store/Actions/ActionCreators';
 
 const styles = StyleSheet.create({
@@ -12,23 +12,24 @@ const styles = StyleSheet.create({
   textInput: { fontSize: 19, fontWeight: '500' },
 });
 
+const inputSchema = yup.string().required().min(2);
+
 const TextInputCard = ({ dispatch }) => {
   const [text, setText] = useState('');
-  const inputSchema = yup.string().required().min(2);
+
   const submitHandler = () => {
-    inputSchema.isValid(text).then((valid) => {
-      if (valid) {
-        dispatch(
-          addItem({
-            id: Date.now(),
-            product: text,
-            amount: 1,
-            check: false,
-          }),
-        );
-        setText('');
-      }
-    });
+    const valid = inputSchema.isValidSync(text);
+    if (valid) {
+      dispatch(
+        addItem({
+          id: Date.now(),
+          product: text,
+          amount: 1,
+          check: false,
+        }),
+      );
+      setText('');
+    }
   };
 
   return (
@@ -36,11 +37,9 @@ const TextInputCard = ({ dispatch }) => {
       <Card.Content>
         <TextInput
           placeholder='Enter new product'
-          value={text}
-          onChangeText={(txt) => {
-            setText(txt);
-          }}
           blurOnSubmit={false}
+          value={text}
+          onChangeText={(e) => setText(e)}
           style={styles.textInput}
           onSubmitEditing={submitHandler}
         />
