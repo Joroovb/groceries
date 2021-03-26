@@ -4,8 +4,8 @@ import {
   REMOVE,
   STORE_BOUGHT,
   CHANGE_ORDER,
-} from '../../store/Actions/ActionTypes';
-import reducer from '../../store/Reducers/RootReducer';
+} from '../../src/store/Actions/ActionTypes';
+import reducer from '../../src/store/Reducers/RootReducer';
 
 describe('items reducer', () => {
   it('should return the initial state', () => {

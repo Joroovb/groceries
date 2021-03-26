@@ -7,8 +7,8 @@ import {
 } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './store/store';
-import MainStack from './navigators/MainStack';
+import { store, persistor } from './src/store/store';
+import MainStack from './src/navigators/MainStack';
 
 const theme = {
   ...DefaultTheme,

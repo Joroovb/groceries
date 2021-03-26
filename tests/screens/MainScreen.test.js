@@ -1,6 +1,6 @@
 import React from 'react';
 import { cleanup } from '@testing-library/react-native';
-import MainScreen from '../../screens/MainScreen';
+import MainScreen from '../../src/screens/MainScreen';
 import { render as customRender } from '../utils/RenderWithNavigation';
 
 jest.useFakeTimers();
