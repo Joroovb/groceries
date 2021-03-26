@@ -5,7 +5,7 @@ import {
   removeItem,
   checkItem,
   changeOrder,
-} from '../../store/Actions/ActionCreators';
+} from '../../src/store/Actions/ActionCreators';
 
 const mockStore = configureStore([]);
 
