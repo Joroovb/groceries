@@ -1,5 +1,6 @@
 name: Create Release
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'prod-[1-9]+.[0-9]+.[0-9]+' # Push events to matching prod-*, i.e.prod-20.15.10
