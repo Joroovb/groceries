@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import configureStore from 'redux-mock-store';
+import MainTab from '../../src/navigators/MainTab';
 
 const mockStore = configureStore([]);
 
@@ -17,7 +18,9 @@ const AllTheProviders = ({ children }) => {
   return (
     <Provider store={store}>
       <PaperProvider>
-        <NavigationContainer>{children}</NavigationContainer>
+        <NavigationContainer>
+          <MainTab>{children}</MainTab>
+        </NavigationContainer>
       </PaperProvider>
     </Provider>
   );
