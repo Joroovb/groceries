@@ -13,45 +13,42 @@ describe('Correctly render TextInputCard', () => {
 
     getByPlaceholderText('Enter new product');
   });
+});
 
-  describe('Correctly validate text input', () => {
-    it('should not call dispatch if input is invalid', () => {
-      const distpatch = jest.fn();
-      const submitHandler = jest.fn();
-      const { getByPlaceholderText } = render(
-        <TextInputCard dispatch={distpatch} submitHandler={submitHandler} />,
-      );
+describe('Correctly validate text input', () => {
+  it('should not call dispatch if input is invalid', () => {
+    const distpatch = jest.fn();
+    const submitHandler = jest.fn();
+    const { getByPlaceholderText } = render(
+      <TextInputCard dispatch={distpatch} submitHandler={submitHandler} />,
+    );
 
-      act(() => {
-        fireEvent.changeText(getByPlaceholderText('Enter new product'), '');
-      });
-      fireEvent(getByPlaceholderText('Enter new product'), 'onSubmitEditing');
-      expect(distpatch).not.toHaveBeenCalled();
+    act(() => {
+      fireEvent.changeText(getByPlaceholderText('Enter new product'), '');
+    });
+    fireEvent(getByPlaceholderText('Enter new product'), 'onSubmitEditing');
+    expect(distpatch).not.toHaveBeenCalled();
 
-      act(() => {
-        fireEvent.changeText(getByPlaceholderText('Enter new product'), ' ');
-      });
-      fireEvent(getByPlaceholderText('Enter new product'), 'onSubmitEditing');
-      expect(distpatch).not.toHaveBeenCalled();
+    act(() => {
+      fireEvent.changeText(getByPlaceholderText('Enter new product'), ' ');
+    });
+    fireEvent(getByPlaceholderText('Enter new product'), 'onSubmitEditing');
+    expect(distpatch).not.toHaveBeenCalled();
+  });
+
+  it('should call dispatch if input is valid', () => {
+    const distpatch = jest.fn();
+
+    const { getByPlaceholderText } = render(
+      <TextInputCard dispatch={distpatch} />,
+    );
+
+    act(() => {
+      fireEvent.changeText(getByPlaceholderText('Enter new product'), 'Coffee');
     });
 
-    it('should call dispatch if input is valid', () => {
-      const distpatch = jest.fn();
+    fireEvent(getByPlaceholderText('Enter new product'), 'onSubmitEditing');
 
-      const { getByPlaceholderText } = render(
-        <TextInputCard dispatch={distpatch} />,
-      );
-
-      act(() => {
-        fireEvent.changeText(
-          getByPlaceholderText('Enter new product'),
-          'Coffee',
-        );
-      });
-
-      fireEvent(getByPlaceholderText('Enter new product'), 'onSubmitEditing');
-
-      expect(distpatch).toHaveBeenCalled();
-    });
+    expect(distpatch).toHaveBeenCalled();
   });
 });

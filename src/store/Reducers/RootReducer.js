@@ -13,7 +13,7 @@ const reducer = (state = {}, action) => {
     case ADD: {
       return {
         ...state,
-        items: [...items, item],
+        items: [item, ...items],
       };
     }
 

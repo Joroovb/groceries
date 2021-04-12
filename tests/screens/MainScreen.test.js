@@ -7,7 +7,7 @@ jest.useFakeTimers();
 
 describe('Correctly render MainScreen', () => {
   afterEach(cleanup);
-  it('should render with correct elements', () => {
+  it('should render with correct the elements', () => {
     const { getByTestId, queryAllByTestId } = customRender(<MainScreen />);
 
     getByTestId('FAB');

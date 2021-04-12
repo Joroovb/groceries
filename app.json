@@ -21,7 +21,7 @@
       "bundleIdentifier": "com.joroovb.groceries"
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 3,
       "package": "com.joroovb.groceries",
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {

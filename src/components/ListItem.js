@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { Card, Menu, IconButton } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Card, Title } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import { checkItem, removeItem } from '../store/Actions/ActionCreators';
+import { checkItem } from '../store/Actions/ActionCreators';
+import CustomMenu from './CustomMenu';
 
 const styles = StyleSheet.create({
   card: {
@@ -13,6 +14,15 @@ const styles = StyleSheet.create({
     color: '#808080',
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
+    backgroundColor: '#f4f4f4',
+  },
+  cardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  customMenu: {
+    alignSelf: 'flex-end',
   },
 });
 
@@ -21,6 +31,7 @@ const ListItem = ({ item, dispatch, drag, isActive }) => {
   const openMenu = () => {
     setVisible(true);
   };
+
   const closeMenu = () => {
     setVisible(false);
   };
@@ -28,30 +39,25 @@ const ListItem = ({ item, dispatch, drag, isActive }) => {
   return (
     <Card
       elevation={isActive ? 6 : 3}
-      style={styles.card}
+      style={item.check ? { ...styles.checked, ...styles.card } : styles.card}
       onPress={() => {
         dispatch(checkItem(item));
       }}
       onLongPress={drag}
       testID='listItem'
     >
-      <Card.Title
-        titleStyle={item.check ? styles.checked : {}}
-        title={item.product}
-        right={() => (
-          <Menu
+      <Card.Content style={styles.cardContent}>
+        <Title style={item.check ? styles.checked : {}}>{item.product}</Title>
+        <View style={styles.customMenu}>
+          <CustomMenu
             visible={visible}
-            onDismiss={closeMenu}
-            anchor={<IconButton icon='dots-vertical' onPress={openMenu} />}
-          >
-            <Menu.Item
-              onPress={() => dispatch(removeItem(item))}
-              icon='delete'
-              title='Delete'
-            />
-          </Menu>
-        )}
-      />
+            closeMenu={closeMenu}
+            openMenu={openMenu}
+            item={item}
+            dispatch={dispatch}
+          />
+        </View>
+      </Card.Content>
     </Card>
   );
 };
