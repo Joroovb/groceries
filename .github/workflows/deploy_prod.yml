@@ -95,11 +95,11 @@ jobs:
           echo The android url is $ASSET_URL
           echo "::set-output name=assetUrl::$ASSET_URL"
       - name: Download AAB Asset
-        run: wget -O example-${{ env.GITHUB_REF_SLUG }}.aab ${{ steps.androidUrl.outputs.assetUrl }}
+        run: wget -O groceries-${{ env.GITHUB_REF_SLUG }}.aab ${{ steps.androidUrl.outputs.assetUrl }}
       - name: Upload Release Asset
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./example-${{ env.GITHUB_REF_SLUG }}.aab
-          asset_name: example-${{ env.GITHUB_REF_SLUG }}.aab
+          file: ./groceries-${{ env.GITHUB_REF_SLUG }}.aab
+          asset_name: groceries-${{ env.GITHUB_REF_SLUG }}.aab
           tag: ${{ github.ref }}
