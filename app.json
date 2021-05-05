@@ -13,15 +13,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.joroovb.groceries"
     },
     "android": {
-      "versionCode": 3,
+      "versionCode": 4,
       "package": "com.joroovb.groceries",
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
