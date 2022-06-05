@@ -1,4 +1,11 @@
-import { ADD, CHECK, REMOVE, STORE_BOUGHT, CHANGE_ORDER } from './ActionTypes';
+import {
+  ADD,
+  CHECK,
+  UNCHECK,
+  REMOVE,
+  STORE_BOUGHT,
+  CHANGE_ORDER,
+} from './ActionTypes';
 
 export const addItem = (item) => ({
   type: ADD,
@@ -12,6 +19,11 @@ export const removeItem = (item) => ({
 
 export const checkItem = (item) => ({
   type: CHECK,
+  item,
+});
+
+export const uncheckItem = (item) => ({
+  type: UNCHECK,
   item,
 });
 

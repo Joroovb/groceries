@@ -1,6 +1,7 @@
 import {
   REMOVE,
   CHECK,
+  UNCHECK,
   ADD,
   STORE_BOUGHT,
   CHANGE_ORDER,
@@ -18,12 +19,27 @@ const reducer = (state = {}, action) => {
     }
 
     case CHECK: {
-      const index = items.findIndex((i) => i.id === item.id);
-      const newArray = [...items];
-      newArray[index].check = !newArray[index].check;
+      const newArray = items.filter((i) => i.id !== item.id);
+      item.check = !item.check;
+      newArray.push(item);
+
       return {
         ...state,
         items: newArray,
+      };
+    }
+
+    case UNCHECK: {
+      const newArray = items.filter((i) => i.id !== item.id);
+
+      const checkedItems = newArray.filter((i) => i.check);
+      const uncheckedItems = newArray.filter((i) => !i.check);
+      item.check = !item.check;
+      const collect = [...uncheckedItems, item, ...checkedItems];
+
+      return {
+        ...state,
+        items: collect,
       };
     }
 
